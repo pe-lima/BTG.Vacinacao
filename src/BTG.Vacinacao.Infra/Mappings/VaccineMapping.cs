@@ -9,31 +9,30 @@ using System.Threading.Tasks;
 
 namespace BTG.Vacinacao.Infra.Mappings
 {
-    public class PersonMapping : IEntityTypeConfiguration<Person>
+    public class VaccineMapping : IEntityTypeConfiguration<Vaccine>
     {
-        public void Configure(EntityTypeBuilder<Person> builder)
+        public void Configure(EntityTypeBuilder<Vaccine> builder)
         {
-            builder.ToTable("Persons");
+            builder.ToTable("Vaccines");
+            
+            builder.HasKey(v => v.Id);
 
-            builder.HasKey(p => p.Id);
-
-            builder.Property(p => p.Cpf)
+            builder.Property(v => v.Code)
                 .IsRequired()
-                .HasMaxLength(11);
+                .HasMaxLength(6);
 
-            builder.HasIndex(p => p.Cpf)
+            builder.HasIndex(v => v.Code)
                 .IsUnique();
 
-            builder.Property(p => p.Name)
+            builder.Property(v => v.Name)
                 .IsRequired()
                 .HasMaxLength(100);
-
-            builder.Property(p => p.CreatedAt)
+            
+            builder.Property(v => v.CreatedAt)
                 .IsRequired();
-
-            builder.Property(p => p.UpdatedAt)
+     
+            builder.Property(v => v.UpdatedAt)
                 .IsRequired(false);
-
         }
     }
 }
