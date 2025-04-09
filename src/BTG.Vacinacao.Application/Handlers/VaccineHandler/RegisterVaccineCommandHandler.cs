@@ -1,7 +1,8 @@
 ﻿using BTG.Vacinacao.Application.Commands.VaccineCommand;
 using BTG.Vacinacao.Application.DTOs;
 using BTG.Vacinacao.Core.Entities;
-using BTG.Vacinacao.Core.Interfaces.Repository;
+using BTG.Vacinacao.Core.Interfaces.Repositories;
+using FluentValidation;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -13,17 +14,21 @@ namespace BTG.Vacinacao.Application.Handlers.VaccineHandler
 {
     public class RegisterVaccineCommandHandler : IRequestHandler<RegisterVaccineCommand, VaccineDto>
     {
-        private readonly IVaccineRepository _vaccineRepository;
-        public RegisterVaccineCommandHandler(IVaccineRepository vaccineRepository)
+        private readonly IUnitOfWork _unitOfWork;
+        public RegisterVaccineCommandHandler(IUnitOfWork unitOfWork)
         {
-            _vaccineRepository = vaccineRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<VaccineDto> Handle(RegisterVaccineCommand request, CancellationToken cancellationToken)
         {
             var vaccine = new Vaccine(request.Name, request.Code);
 
-            await _vaccineRepository.AddAsync(vaccine);
+            if (await _unitOfWork.Vaccine.ExistsByCodeAsync(request.Code))
+                throw new ValidationException("Vaccine code already exists.");
+
+            await _unitOfWork.Vaccine.AddAsync(vaccine);
+            await _unitOfWork.CommitAsync();
 
             return new VaccineDto
             {

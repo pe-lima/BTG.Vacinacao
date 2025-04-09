@@ -1,5 +1,5 @@
 ﻿using BTG.Vacinacao.Core.Entities;
-using BTG.Vacinacao.Core.Interfaces.Repository;
+using BTG.Vacinacao.Core.Interfaces.Repositories;
 using BTG.Vacinacao.Infra.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,23 +10,14 @@ using System.Threading.Tasks;
 
 namespace BTG.Vacinacao.Infra.Repositories
 {
-    public class PersonRepository : IPersonRepository
+    public class PersonRepository : Repository<Person>, IPersonRepository
     {
-        private readonly ApplicationDbContext _context;
-        public PersonRepository(ApplicationDbContext context)
-        {
-            _context = context;
-        }
+        public PersonRepository(ApplicationDbContext context) : base(context) { }
 
-        public async Task AddAsync(Person person)
-        {
-            await _context.Persons.AddAsync(person);
-            await _context.SaveChangesAsync();
-        }
+        public Task<bool> ExistsByCpfAsync(string cpf) =>
+            _dbSet.AnyAsync(p => p.Cpf == cpf);
 
-        public async Task<Person> GetByIdAsync(Guid id)
-        {
-            return await _context.Persons.FirstAsync(p => p.Id == id);
-        }
+        public Task<Person?> GetByCpfAsync(string cpf) =>
+            _dbSet.FirstOrDefaultAsync(p => p.Cpf == cpf);
     }
 }
