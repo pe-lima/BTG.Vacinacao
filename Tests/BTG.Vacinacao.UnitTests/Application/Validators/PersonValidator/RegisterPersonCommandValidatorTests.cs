@@ -15,27 +15,23 @@ namespace BTG.Vacinacao.UnitTests.Application.Validators.PersonValidator
         }
 
         [Fact]
-        public void Should_Pass_When_Name_Is_Valid()
+        public void Should_Pass_When_Name_And_Cpf_Are_Valid()
         {
-            var command = new RegisterPersonCommand("João da Silva", "12312312312");
+            var command = new RegisterPersonCommand("João da Silva", "12345678901");
+
             var result = _validator.TestValidate(command);
 
-            result.ShouldNotHaveValidationErrorFor(x => x.Name);
+            result.ShouldNotHaveAnyValidationErrors();
         }
 
-        [Fact]
-        public void Should_Fail_When_Name_Is_Empty()
+        [Theory]
+        [InlineData("")]
+        [InlineData("Jo")]
+        [InlineData(null)]
+        public void Should_Fail_When_Name_Is_Invalid(string invalidName)
         {
-            var command = new RegisterPersonCommand("", "12312312312");
-            var result = _validator.TestValidate(command);
+            var command = new RegisterPersonCommand(invalidName, "12345678901");
 
-            result.ShouldHaveValidationErrorFor(x => x.Name);
-        }
-
-        [Fact]
-        public void Should_Fail_When_Name_Is_Too_Short()
-        {
-            var command = new RegisterPersonCommand("Jo", "12312312312");
             var result = _validator.TestValidate(command);
 
             result.ShouldHaveValidationErrorFor(x => x.Name);
@@ -44,56 +40,35 @@ namespace BTG.Vacinacao.UnitTests.Application.Validators.PersonValidator
         [Fact]
         public void Should_Fail_When_Name_Is_Too_Long()
         {
-            var command = new RegisterPersonCommand(new string('A', 101), "12312312312");
+            var command = new RegisterPersonCommand(new string('A', 101), "12345678901");
+
             var result = _validator.TestValidate(command);
 
             result.ShouldHaveValidationErrorFor(x => x.Name);
+        }
+
+        [Theory]
+        [InlineData("")]
+        [InlineData("12345")]
+        [InlineData("123ABC456DE")]
+        [InlineData("123.456.789-01")]
+        public void Should_Fail_When_Cpf_Is_Invalid(string invalidCpf)
+        {
+            var command = new RegisterPersonCommand("João da Silva", invalidCpf);
+
+            var result = _validator.TestValidate(command);
+
+            result.ShouldHaveValidationErrorFor(x => x.Cpf);
         }
 
         [Fact]
         public void Should_Pass_When_Cpf_Is_Valid()
         {
             var command = new RegisterPersonCommand("João da Silva", "12345678901");
+
             var result = _validator.TestValidate(command);
 
             result.ShouldNotHaveValidationErrorFor(x => x.Cpf);
         }
-
-        [Fact]
-        public void Should_Fail_When_Cpf_Is_Empty()
-        {
-            var command = new RegisterPersonCommand("João da Silva", "");
-            var result = _validator.TestValidate(command);
-
-            result.ShouldHaveValidationErrorFor(x => x.Cpf);
-        }
-
-        [Fact]
-        public void Should_Fail_When_Cpf_Is_Short()
-        {
-            var command = new RegisterPersonCommand("João da Silva", "12345");
-            var result = _validator.TestValidate(command);
-
-            result.ShouldHaveValidationErrorFor(x => x.Cpf);
-        }
-
-        [Fact]
-        public void Should_Fail_When_Cpf_Has_Letters()
-        {
-            var command = new RegisterPersonCommand("João da Silva", "123ABC456DE");
-            var result = _validator.TestValidate(command);
-
-            result.ShouldHaveValidationErrorFor(x => x.Cpf);
-        }
-
-        [Fact]
-        public void Should_Fail_When_Cpf_Has_Special_Characters()
-        {
-            var command = new RegisterPersonCommand("João da Silva", "123.456.789-01");
-            var result = _validator.TestValidate(command);
-
-            result.ShouldHaveValidationErrorFor(x => x.Cpf);
-        }
-
     }
 }

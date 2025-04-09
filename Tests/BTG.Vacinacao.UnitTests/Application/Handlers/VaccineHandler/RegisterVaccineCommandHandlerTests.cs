@@ -2,6 +2,7 @@
 using BTG.Vacinacao.Application.Handlers.VaccineHandler;
 using BTG.Vacinacao.Core.Entities;
 using BTG.Vacinacao.Core.Interfaces.Repositories;
+using FluentValidation;
 using Moq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,32 +12,61 @@ namespace BTG.Vacinacao.UnitTests.Application.Handlers.VaccineHandler
 {
     public class RegisterVaccineCommandHandlerTests
     {
+        private readonly Mock<IVaccineRepository> _mockVaccineRepo;
+        private readonly Mock<IUnitOfWork> _mockUnitOfWork;
+        private readonly RegisterVaccineCommandHandler _handler;
+
+        public RegisterVaccineCommandHandlerTests()
+        {
+            _mockVaccineRepo = new Mock<IVaccineRepository>();
+            _mockUnitOfWork = new Mock<IUnitOfWork>();
+
+            _mockUnitOfWork
+                .Setup(u => u.Vaccine)
+                .Returns(_mockVaccineRepo.Object);
+
+            _handler = new RegisterVaccineCommandHandler(_mockUnitOfWork.Object);
+        }
+
         [Fact]
         public async Task Should_Register_Vaccine_Successfully()
         {
-            // Arrange
             var command = new RegisterVaccineCommand("COVID-19 Vaccine", "121234");
 
-            var mockVaccineRepo = new Mock<IVaccineRepository>();
-            mockVaccineRepo.Setup(r => r.ExistsByCodeAsync(command.Code)).ReturnsAsync(false);
-            mockVaccineRepo.Setup(r => r.AddAsync(It.IsAny<Vaccine>())).Returns(Task.CompletedTask);
+            _mockVaccineRepo
+                .Setup(r => r.ExistsByCodeAsync(command.Code))
+                .ReturnsAsync(false);
 
-            var mockUnitOfWork = new Mock<IUnitOfWork>();
-            mockUnitOfWork.Setup(u => u.Vaccine).Returns(mockVaccineRepo.Object);
-            mockUnitOfWork.Setup(u => u.CommitAsync()).ReturnsAsync(1);
+            _mockVaccineRepo
+                .Setup(r => r.AddAsync(It.IsAny<Vaccine>()))
+                .Returns(Task.CompletedTask);
 
-            var handler = new RegisterVaccineCommandHandler(mockUnitOfWork.Object);
+            _mockUnitOfWork
+                .Setup(u => u.CommitAsync())
+                .ReturnsAsync(1);
 
-            // Act
-            var result = await handler.Handle(command, CancellationToken.None);
+            var result = await _handler.Handle(command, CancellationToken.None);
 
-            // Assert
-            mockVaccineRepo.Verify(r => r.AddAsync(It.IsAny<Vaccine>()), Times.Once);
-            mockUnitOfWork.Verify(u => u.CommitAsync(), Times.Once);
+            _mockVaccineRepo.Verify(r => r.AddAsync(It.IsAny<Vaccine>()), Times.Once);
+            _mockUnitOfWork.Verify(u => u.CommitAsync(), Times.Once);
+
             Assert.NotNull(result);
-            Assert.Equal("COVID-19 Vaccine", result.Name);
-            Assert.Equal("121234", result.Code);
+            Assert.Equal(command.Name, result.Name);
+            Assert.Equal(command.Code, result.Code);
             Assert.NotEqual(Guid.Empty, result.Id);
+        }
+
+        [Fact]
+        public async Task Should_Throw_When_Vaccine_Code_Already_Exists()
+        {
+            var command = new RegisterVaccineCommand("COVID-19", "121234");
+
+            _mockVaccineRepo
+                .Setup(r => r.ExistsByCodeAsync(command.Code))
+                .ReturnsAsync(true);
+
+            await Assert.ThrowsAsync<ValidationException>(() =>
+                _handler.Handle(command, CancellationToken.None));
         }
     }
 }

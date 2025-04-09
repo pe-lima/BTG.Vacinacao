@@ -8,8 +8,8 @@ namespace BTG.Vacinacao.Core.Entities
 {
     public class Vaccine : BaseEntity
     {
-        public string Name { get; set; }
-        public string Code { get; set; }
+        public string Name { get; private set; }
+        public string Code { get; private set; }
 
         public Vaccine(string name, string code)
         {

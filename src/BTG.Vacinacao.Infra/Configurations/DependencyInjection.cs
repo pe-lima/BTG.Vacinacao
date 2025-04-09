@@ -17,6 +17,7 @@ namespace BTG.Vacinacao.Infra.Configurations
             // ( Repositories )
             services.AddScoped<IPersonRepository, PersonRepository>();
             services.AddScoped<IVaccineRepository, VaccineRepository>();
+            services.AddScoped<IVaccinationRepository, VaccinationRepository>();
 
             // ( Unit of Work )
             services.AddScoped<IUnitOfWork, UnitOfWork>();
