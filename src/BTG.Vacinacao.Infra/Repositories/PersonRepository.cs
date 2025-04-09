@@ -12,7 +12,6 @@ namespace BTG.Vacinacao.Infra.Repositories
 {
     public class PersonRepository : IPersonRepository
     {
-
         private readonly ApplicationDbContext _context;
         public PersonRepository(ApplicationDbContext context)
         {
