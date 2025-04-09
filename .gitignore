@@ -1,0 +1,45 @@
+# Build results
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Rider
+.idea/
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
+
+# dotnet-generated files
+*.db-shm
+*.db-wal
+
+# SQLite database
+*.db
+
+# Entity Framework Migrations
+Migrations/
+
+# Test results
+TestResults/
+*.coverage
+*.coveragexml
+
+# Others
+*.ncrunch*
+_ReSharper*/
+*.resharper
+*.sln.ide
+
+.vs
