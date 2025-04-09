@@ -1,45 +1,35 @@
-# Build results
+# Build folders
 bin/
 obj/
+
+# Rider / VS Code / IDEs
+.idea/
+.vscode/
 
 # User-specific files
 *.user
 *.suo
 *.userosscache
-*.sln.docstates
 
-# OS files
-.DS_Store
-Thumbs.db
-
-# Rider
-.idea/
-
-# VS Code
-.vscode/
-
-# Logs
+# Logs e temporários
 *.log
+*.tmp
+*.bak
 
-# dotnet-generated files
-*.db-shm
-*.db-wal
+# Configs locais e sensíveis
+appsettings.Development.json
+appsettings.Local.json
+secrets.json
 
-# SQLite database
+# Pacotes e cache
+.vs/
+.nuget/
+packages/
+
+# Banco local (se usar SQLite, LiteDB, etc)
 *.db
-
-# Entity Framework Migrations
-Migrations/
-
-# Test results
-TestResults/
-*.coverage
-*.coveragexml
-
-# Others
-*.ncrunch*
-_ReSharper*/
-*.resharper
-*.sln.ide
-
-.vs
+*.sqlite
+*.pdb
+*.cache
+*.db-wal
+*.db-shm
