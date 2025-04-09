@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace BTG.Vacinacao.Core.Entities
 {
-    public class Person : BaseEntity
+    public class Vaccine : BaseEntity
     {
         public string Name { get; set; }
-        public string Cpf { get; set; }
+        public string Code { get; set; }
 
-        public Person(string name, string cpf)
+        public Vaccine(string name, string code)
         {
             Id = Guid.NewGuid();
             Name = name;
             CreatedAt = DateTime.UtcNow;
-            Cpf = cpf;
+            Code = code;
         }
     }
 }
