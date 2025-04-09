@@ -1,6 +1,0 @@
-@BTG.Vacinacao.Presentation_HostAddress = http://localhost:5178
-
-GET {{BTG.Vacinacao.Presentation_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
