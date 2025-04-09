@@ -31,3 +31,5 @@ packages/
 *.sqlite
 *.pdb
 *.cache
+*.db-wal
+*.db-shm
