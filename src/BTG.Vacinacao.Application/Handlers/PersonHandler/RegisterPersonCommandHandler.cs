@@ -1,4 +1,4 @@
-﻿using BTG.Vacinacao.Application.Commands.Person;
+﻿using BTG.Vacinacao.Application.Commands.PersonCommand;
 using BTG.Vacinacao.Application.DTOs;
 using BTG.Vacinacao.Core.Entities;
 using BTG.Vacinacao.Core.Interfaces.Repository;
@@ -17,14 +17,15 @@ namespace BTG.Vacinacao.Application.Handlers.PersonHandler
 
         public async Task<PersonDto> Handle(RegisterPersonCommand request, CancellationToken cancellationToken)
         {
-            var person = new Person(request.Name);
+            var person = new Person(request.Name, request.Cpf);
 
             await _personRepository.AddAsync(person);
 
             return new PersonDto
             {
                 Id = person.Id,
-                Name = person.Name
+                Name = person.Name,
+                Cpf = person.Cpf
             };
         }
     }
