@@ -1,4 +1,4 @@
-﻿using BTG.Vacinacao.Core.Interfaces.Repository;
+﻿using BTG.Vacinacao.Core.Interfaces.Repositories;
 using BTG.Vacinacao.Infra.Context;
 using BTG.Vacinacao.Infra.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +17,9 @@ namespace BTG.Vacinacao.Infra.Configurations
             // ( Repositories )
             services.AddScoped<IPersonRepository, PersonRepository>();
             services.AddScoped<IVaccineRepository, VaccineRepository>();
+
+            // ( Unit of Work )
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
         }
