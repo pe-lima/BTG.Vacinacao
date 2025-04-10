@@ -1,5 +1,6 @@
 ﻿using BTG.Vacinacao.Application.Commands.VaccineCommand;
 using BTG.Vacinacao.Application.DTOs;
+using BTG.Vacinacao.Application.Queries.VaccineQuery;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,6 +21,21 @@ namespace BTG.Vacinacao.Presentation.Controllers
         {
             var result = await _mediator.Send(command);
             return CreatedAtAction(nameof(Register), new { id = result.Id }, result);
+        }
+
+        [HttpGet("{code}")]
+        public async Task<ActionResult<VaccineDto>> GetByCode(string code)
+        {
+            var query = new GetVaccineByCodeQuery(code);
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<VaccineDto>>> GetAll()
+        {
+            var result = await _mediator.Send(new GetAllVaccinesQuery());
+            return Ok(result);
         }
     }
 }
