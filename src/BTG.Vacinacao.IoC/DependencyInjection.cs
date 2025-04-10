@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BTG.Vacinacao.CrossCutting.Configurations;
 
 namespace BTG.Vacinacao.IoC
 {
@@ -16,6 +17,7 @@ namespace BTG.Vacinacao.IoC
         {
             services.AddApplication();
             services.AddInfra(configuration);
+            services.AddCrossCutting();
 
             return services;
         }

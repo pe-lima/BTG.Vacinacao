@@ -16,6 +16,7 @@ namespace BTG.Vacinacao.Infra.Context
         public DbSet<Person> Persons { get; set; }
         public DbSet<Vaccine> Vaccines { get; set; }
         public DbSet<Vaccination> Vaccinations { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

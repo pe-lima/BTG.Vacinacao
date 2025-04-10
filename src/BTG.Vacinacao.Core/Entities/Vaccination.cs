@@ -21,6 +21,7 @@ namespace BTG.Vacinacao.Core.Entities
             VaccineId = vaccineId;
             DoseType = doseType;
             ApplicationDate = applicationDate;
+            CreatedAt = DateTime.UtcNow;
         }
 
         // EF Area

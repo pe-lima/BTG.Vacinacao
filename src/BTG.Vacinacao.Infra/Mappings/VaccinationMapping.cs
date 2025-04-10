@@ -20,6 +20,12 @@ namespace BTG.Vacinacao.Infra.Mappings
             builder.Property(v => v.ApplicationDate)
                 .IsRequired();
 
+            builder.Property(v => v.CreatedAt)
+                .IsRequired();
+
+            builder.Property(v => v.UpdatedAt)
+                .IsRequired(false);
+
             builder.HasOne(v => v.Person)
                 .WithMany()
                 .HasForeignKey(v => v.PersonId)

@@ -1,4 +1,5 @@
 ﻿using BTG.Vacinacao.Application.DTOs;
+using BTG.Vacinacao.Application.DTOs.Vaccination;
 using BTG.Vacinacao.Application.Queries.VaccinationCardQuery;
 using BTG.Vacinacao.Core.Interfaces.Repositories;
 using FluentValidation;

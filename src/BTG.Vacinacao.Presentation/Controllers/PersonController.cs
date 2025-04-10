@@ -1,14 +1,17 @@
 ﻿using BTG.Vacinacao.Application.Commands.PersonCommand;
-using BTG.Vacinacao.Application.DTOs;
+using BTG.Vacinacao.Application.DTOs.Person;
+using BTG.Vacinacao.Application.DTOs.Vaccination;
 using BTG.Vacinacao.Application.Queries.PersonQuery;
 using BTG.Vacinacao.Application.Queries.VaccinationCardQuery;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BTG.Vacinacao.Presentation.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class PersonController : ControllerBase
     {
         private readonly IMediator _mediator;

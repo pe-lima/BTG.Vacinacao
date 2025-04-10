@@ -1,13 +1,15 @@
 ﻿using BTG.Vacinacao.Application.Commands.VaccineCommand;
-using BTG.Vacinacao.Application.DTOs;
+using BTG.Vacinacao.Application.DTOs.Vaccine;
 using BTG.Vacinacao.Application.Queries.VaccineQuery;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BTG.Vacinacao.Presentation.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class VaccineController :  ControllerBase
     {
         private readonly IMediator _mediator;

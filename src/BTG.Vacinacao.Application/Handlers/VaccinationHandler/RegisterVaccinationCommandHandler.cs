@@ -1,5 +1,5 @@
 ﻿using BTG.Vacinacao.Application.Commands.VaccinationCommand;
-using BTG.Vacinacao.Application.DTOs;
+using BTG.Vacinacao.Application.DTOs.Vaccination;
 using BTG.Vacinacao.Core.Entities;
 using BTG.Vacinacao.Core.Enums;
 using BTG.Vacinacao.Core.Interfaces.Repositories;
