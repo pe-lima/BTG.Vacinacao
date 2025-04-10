@@ -18,11 +18,13 @@ namespace BTG.Vacinacao.Infra.Repositories
             Person = new PersonRepository(_context);
             Vaccine = new VaccineRepository(_context);
             Vaccination = new VaccinationRepository(_context);
+            User = new UserRepository(_context);
         }
 
         public IPersonRepository Person { get; }
         public IVaccineRepository Vaccine { get; }
         public IVaccinationRepository Vaccination { get; }
+        public IUserRepository User { get; }
 
         public Task<int> CommitAsync()
             => _context.SaveChangesAsync();
