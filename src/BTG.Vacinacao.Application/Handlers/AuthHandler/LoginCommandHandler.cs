@@ -25,7 +25,7 @@ namespace BTG.Vacinacao.Application.Handlers.AuthHandler
             var user = await _unitOfWork.User.GetByUsernameAsync(request.Username);
 
             if (user is null || !BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
-                throw new GlobalException("Invalid username or password.", HttpStatusCode.Unauthorized);
+                throw new GlobalException("Invalid credentials", HttpStatusCode.Unauthorized);
 
             var (token, expiration) = _jwtService.GenerateToken(user);
 
