@@ -2,6 +2,7 @@
 using System.Net;
 using Microsoft.AspNetCore.Http;
 using System.Text.Json;
+using BTG.Vacinacao.CrossCutting.Exceptions;
 
 namespace BTG.Vacinacao.CrossCutting.Middlewares
 {
@@ -24,36 +25,41 @@ namespace BTG.Vacinacao.CrossCutting.Middlewares
             {
                 context.Response.ContentType = "application/json";
 
-                if (ex is ValidationException validationEx)
+                var statusCode = ex switch
                 {
-                    context.Response.StatusCode = StatusCodes.Status400BadRequest;
-
-                    var errors = validationEx.Errors
-                        .GroupBy(e => e.PropertyName)
-                        .Select(g => new
-                        {
-                            field = g.Key,
-                            messages = g.Select(e => e.ErrorMessage).ToList()
-                        });
-
-                    var validationResponse = new
-                    {
-                        status = context.Response.StatusCode,
-                        errors
-                    };
-
-                    await context.Response.WriteAsync(JsonSerializer.Serialize(validationResponse));
-                    return;
-                }
-
-                context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-
-                var response = new
-                {
-                    status = context.Response.StatusCode,
-                    message = ex.Message
+                    GlobalException apiEx => (int)apiEx.StatusCode,
+                    ValidationException => StatusCodes.Status400BadRequest,
+                    _ => StatusCodes.Status500InternalServerError
                 };
 
+                object response = ex switch
+                {
+                    GlobalException apiEx => new
+                    {
+                        status = (int)apiEx.StatusCode,
+                        message = apiEx.Message,
+                        details = apiEx.Details
+                    },
+                    ValidationException validationEx => new
+                    {
+                        status = StatusCodes.Status400BadRequest,
+                        message = "Validation failed",
+                        errors = validationEx.Errors
+                            .GroupBy(e => e.PropertyName)
+                            .Select(g => new
+                            {
+                                field = g.Key,
+                                messages = g.Select(x => x.ErrorMessage).ToList()
+                            })
+                    },
+                    _ => new
+                    {
+                        status = StatusCodes.Status500InternalServerError,
+                        message = "An unexpected error occurred"
+                    }
+                };
+
+                context.Response.StatusCode = statusCode;
                 await context.Response.WriteAsync(JsonSerializer.Serialize(response));
             }
         }
