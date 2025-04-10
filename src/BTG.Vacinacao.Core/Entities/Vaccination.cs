@@ -24,8 +24,8 @@ namespace BTG.Vacinacao.Core.Entities
         }
 
         // EF Area
-        public Person Person { get; private set; }
-        public Vaccine Vaccine { get; private set; }
+        public Person Person { get; set; }
+        public Vaccine Vaccine { get; set; }
 
         protected Vaccination() { }
     }

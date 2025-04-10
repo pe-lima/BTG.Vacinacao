@@ -11,5 +11,7 @@ namespace BTG.Vacinacao.Core.Interfaces.Repositories
     public interface IVaccinationRepository : IRepository<Vaccination>
     {
         Task<bool> ExistsAsync(Guid personId, Guid vaccineId, DoseType doseType);
+
+        Task<List<Vaccination>> GetByPersonIdWithVaccineAsync(Guid personId);
     }
 }

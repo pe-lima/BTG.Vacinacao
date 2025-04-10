@@ -14,10 +14,10 @@ namespace BTG.Vacinacao.Infra.Repositories
     {
         public VaccineRepository(ApplicationDbContext context) : base(context) { }
 
-        public Task<bool> ExistsByCodeAsync(string code) =>
-            _dbSet.AnyAsync(v => v.Code == code);
+        public async Task<bool> ExistsByCodeAsync(string code) =>
+            await _dbSet.AnyAsync(v => v.Code == code);
 
-        public Task<Vaccine?> GetByCodeAsync(string code) =>
-            _dbSet.FirstOrDefaultAsync(v => v.Code == code);
+        public async Task<Vaccine?> GetByCodeAsync(string code) =>
+            await _dbSet.FirstOrDefaultAsync(v => v.Code == code);
     }
 }
