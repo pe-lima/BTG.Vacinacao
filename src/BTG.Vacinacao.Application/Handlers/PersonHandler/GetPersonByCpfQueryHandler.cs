@@ -1,11 +1,13 @@
 ﻿using BTG.Vacinacao.Application.DTOs.Person;
 using BTG.Vacinacao.Application.Queries.PersonQuery;
+using BTG.Vacinacao.CrossCutting.Exceptions;
 using BTG.Vacinacao.Core.Interfaces.Repositories;
 using FluentValidation;
 using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,7 +26,7 @@ namespace BTG.Vacinacao.Application.Handlers.PersonHandler
             var person = await _unitOfWork.Person.GetByCpfAsync(request.Cpf);
 
             if (person is null)
-                throw new ValidationException("Person not found.");
+                throw new GlobalException("Person not found.", HttpStatusCode.NotFound);
 
             return new PersonDto
             {

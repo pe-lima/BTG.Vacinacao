@@ -1,9 +1,10 @@
 ﻿using BTG.Vacinacao.Application.Commands.PersonCommand;
 using BTG.Vacinacao.Application.DTOs.Person;
 using BTG.Vacinacao.Core.Entities;
+using BTG.Vacinacao.CrossCutting.Exceptions;
 using BTG.Vacinacao.Core.Interfaces.Repositories;
-using FluentValidation;
 using MediatR;
+using System.Net;
 
 namespace BTG.Vacinacao.Application.Handlers.PersonHandler
 {
@@ -20,7 +21,8 @@ namespace BTG.Vacinacao.Application.Handlers.PersonHandler
             var person = new Person(request.Name, request.Cpf);
 
             if (await _unitOfWork.Person.ExistsByCpfAsync(request.Cpf))
-                throw new ValidationException("CPF already exists.");
+                throw new GlobalException("CPF already exists.", HttpStatusCode.Conflict);
+
 
             await _unitOfWork.Person.AddAsync(person);
             await _unitOfWork.CommitAsync();
