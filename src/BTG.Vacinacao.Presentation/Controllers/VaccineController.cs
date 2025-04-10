@@ -14,19 +14,34 @@ namespace BTG.Vacinacao.Presentation.Controllers
     public class VaccineController :  ControllerBase
     {
         private readonly IMediator _mediator;
+
         public VaccineController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
+        /// <summary>
+        /// Registers a new vaccine
+        /// </summary>
+        /// <returns>The registered vaccine</returns>
         [HttpPost]
+        [ProducesResponseType(typeof(VaccineDto), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<VaccineDto>> Register([FromBody] RegisterVaccineCommand command)
         {
             var result = await _mediator.Send(command);
-            return CreatedAtAction(nameof(Register), new { id = result.Id }, result);
+            return CreatedAtAction(nameof(GetByCode), new { code = result.Code }, result);
         }
 
+        /// <summary>
+        /// Gets a vaccine by its code
+        /// </summary>
         [HttpGet("{code}")]
+        [ProducesResponseType(typeof(VaccineDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<VaccineDto>> GetByCode(string code)
         {
             var query = new GetVaccineByCodeQuery(code);
@@ -34,7 +49,12 @@ namespace BTG.Vacinacao.Presentation.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Gets all vaccines
+        /// </summary>
         [HttpGet]
+        [ProducesResponseType(typeof(List<VaccineDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<List<VaccineDto>>> GetAll()
         {
             var result = await _mediator.Send(new GetAllVaccinesQuery());
