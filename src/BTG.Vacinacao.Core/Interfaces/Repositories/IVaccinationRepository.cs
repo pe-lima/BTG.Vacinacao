@@ -13,5 +13,9 @@ namespace BTG.Vacinacao.Core.Interfaces.Repositories
         Task<bool> ExistsAsync(Guid personId, Guid vaccineId, DoseType doseType);
 
         Task<List<Vaccination>> GetByPersonIdWithVaccineAsync(Guid personId);
+
+        Task<List<Vaccination>> GetByPersonIdAsync(Guid personId);
+
+        void RemoveRange(IEnumerable<Vaccination> vaccinations);
     }
 }

@@ -47,5 +47,16 @@ namespace BTG.Vacinacao.Presentation.Controllers
             var result = await _mediator.Send(query);
             return Ok(result);
         }
+
+        [HttpDelete("{cpf}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Delete(string cpf)
+        {
+            var command = new DeletePersonCommand(cpf);
+            await _mediator.Send(command);
+            return NoContent();
+        }
     }
 }
