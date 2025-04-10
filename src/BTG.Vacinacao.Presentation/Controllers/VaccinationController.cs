@@ -21,5 +21,16 @@ namespace BTG.Vacinacao.Presentation.Controllers
             var result = await _mediator.Send(command);
             return CreatedAtAction(nameof(RegisterVaccination), new { id = result.Id }, result);
         }
+
+        [HttpDelete("{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var command = new DeleteVaccinationCommand(id);
+            await _mediator.Send(command);
+            return NoContent();
+        }
     }
 }

@@ -33,8 +33,9 @@ namespace BTG.Vacinacao.Application.Handlers.VaccinationCardHandler
             {
                 Name = person.Name,
                 Cpf = person.Cpf,
-                Vaccinations = vaccinations.Select(v => new VaccinationRecordDto
+                Vaccinations = vaccinations.Select(v => new VaccinationRecordDto 
                 {
+                    Id = v.Id,
                     VaccineName = v.Vaccine.Name,
                     DoseType = v.DoseType.ToString(),
                     ApplicationDate = v.ApplicationDate

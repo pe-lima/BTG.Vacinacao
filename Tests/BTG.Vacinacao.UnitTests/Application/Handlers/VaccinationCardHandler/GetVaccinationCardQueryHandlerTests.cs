@@ -1,15 +1,10 @@
 ﻿using BTG.Vacinacao.Application.Handlers.VaccinationCardHandler;
-using BTG.Vacinacao.Application.Handlers.VaccinationHandler;
 using BTG.Vacinacao.Application.Queries.VaccinationCardQuery;
 using BTG.Vacinacao.Core.Entities;
+using BTG.Vacinacao.Core.Enums;
 using BTG.Vacinacao.Core.Interfaces.Repositories;
 using FluentValidation;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BTG.Vacinacao.UnitTests.Application.Handlers.VaccinationCardHandler
 {
@@ -82,7 +77,7 @@ namespace BTG.Vacinacao.UnitTests.Application.Handlers.VaccinationCardHandler
             var person = new Person("João", query.Cpf);
             var vaccine = new Vaccine("Covid-19", "123456");
 
-            var vaccination = new Vaccination(person.Id, vaccine.Id, Core.Enums.DoseType.FirstDose, DateTime.Today)
+            var vaccination = new Vaccination(person.Id, vaccine.Id, DoseType.FirstDose, DateTime.Today)
             {
                 Vaccine = vaccine
             };
@@ -103,8 +98,9 @@ namespace BTG.Vacinacao.UnitTests.Application.Handlers.VaccinationCardHandler
             Assert.Single(result.Vaccinations);
 
             var record = result.Vaccinations[0];
+            Assert.Equal(vaccination.Id, record.Id);
             Assert.Equal("Covid-19", record.VaccineName);
-            Assert.Equal(Core.Enums.DoseType.FirstDose.ToString(), record.DoseType);
+            Assert.Equal(DoseType.FirstDose.ToString(), record.DoseType);
             Assert.Equal(DateTime.Today, record.ApplicationDate);
         }
     }
