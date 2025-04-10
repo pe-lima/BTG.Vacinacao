@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BTG.Vacinacao.Application\BTG.Vacinacao.Application.csproj" />
+    <ProjectReference Include="..\BTG.Vacinacao.CrossCuting\BTG.Vacinacao.CrossCutting.csproj" />
     <ProjectReference Include="..\BTG.Vacinacao.Infra\BTG.Vacinacao.Infra.csproj" />
   </ItemGroup>
 
