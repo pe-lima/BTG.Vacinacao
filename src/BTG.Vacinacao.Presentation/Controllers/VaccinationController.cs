@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BTG.Vacinacao.Presentation.Controllers
 {
     [ApiController]
+    [Tags("Vaccinations")]
     [Route("api/[controller]")]
     [Authorize]
     public class VaccinationController: ControllerBase

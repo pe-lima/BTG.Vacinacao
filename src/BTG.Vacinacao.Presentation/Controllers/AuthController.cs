@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace BTG.Vacinacao.Presentation.Controllers
 {
     [ApiController]
+    [Tags("Authentication")]
+
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
