@@ -9,7 +9,7 @@ namespace BTG.Vacinacao.Application.DTOs.Person
     public class PersonDto
     {
         public Guid Id { get; set; }
-        public string Name { get; set; }
-        public string Cpf { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string Cpf { get; set; } = string.Empty;
     }
 }
