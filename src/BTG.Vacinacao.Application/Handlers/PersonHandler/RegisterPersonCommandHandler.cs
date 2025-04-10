@@ -1,5 +1,5 @@
 ﻿using BTG.Vacinacao.Application.Commands.PersonCommand;
-using BTG.Vacinacao.Application.DTOs;
+using BTG.Vacinacao.Application.DTOs.Person;
 using BTG.Vacinacao.Core.Entities;
 using BTG.Vacinacao.Core.Interfaces.Repositories;
 using FluentValidation;

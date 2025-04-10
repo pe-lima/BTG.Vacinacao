@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BTG.Vacinacao.Application.DTOs
+namespace BTG.Vacinacao.Application.DTOs.Vaccine
 {
-    public class PersonDto
+    public class VaccineDto
     {
-        public Guid Id { get; set; }
+        public Guid Id { get; set; }    
         public string Name { get; set; }
-        public string Cpf { get; set; }
+        public string Code { get; set; }
     }
 }

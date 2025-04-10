@@ -1,4 +1,4 @@
-﻿using BTG.Vacinacao.Application.DTOs;
+﻿using BTG.Vacinacao.Application.DTOs.Person;
 using MediatR;
 using System;
 using System.Collections.Generic;
