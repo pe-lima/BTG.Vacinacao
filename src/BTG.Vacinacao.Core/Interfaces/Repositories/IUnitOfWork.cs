@@ -11,6 +11,7 @@ namespace BTG.Vacinacao.Core.Interfaces.Repositories
         IPersonRepository Person { get; }
         IVaccineRepository Vaccine { get; }
         IVaccinationRepository Vaccination { get; }
+        IUserRepository User { get; }
 
         Task<int> CommitAsync();
 
