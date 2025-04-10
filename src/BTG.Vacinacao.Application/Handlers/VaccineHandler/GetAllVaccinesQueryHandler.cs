@@ -1,4 +1,4 @@
-﻿using BTG.Vacinacao.Application.DTOs;
+﻿using BTG.Vacinacao.Application.DTOs.Vaccine;
 using BTG.Vacinacao.Application.Queries.VaccineQuery;
 using BTG.Vacinacao.Core.Interfaces.Repositories;
 using MediatR;
