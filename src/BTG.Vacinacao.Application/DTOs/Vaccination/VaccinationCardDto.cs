@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BTG.Vacinacao.Application.DTOs
+namespace BTG.Vacinacao.Application.DTOs.Vaccination
 {
     public class VaccinationCardDto
     {

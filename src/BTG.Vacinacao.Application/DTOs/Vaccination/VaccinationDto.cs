@@ -1,6 +1,6 @@
 ﻿using BTG.Vacinacao.Core.Enums;
 
-namespace BTG.Vacinacao.Application.DTOs
+namespace BTG.Vacinacao.Application.DTOs.Vaccination
 {
     public class VaccinationDto
     {
