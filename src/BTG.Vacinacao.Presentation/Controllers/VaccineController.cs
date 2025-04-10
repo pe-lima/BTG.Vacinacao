@@ -1,5 +1,5 @@
 ﻿using BTG.Vacinacao.Application.Commands.VaccineCommand;
-using BTG.Vacinacao.Application.DTOs;
+using BTG.Vacinacao.Application.DTOs.Vaccine;
 using BTG.Vacinacao.Application.Queries.VaccineQuery;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
