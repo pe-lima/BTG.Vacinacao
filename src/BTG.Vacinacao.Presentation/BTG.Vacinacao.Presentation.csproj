@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BTG.Vacinacao.CrossCuting\BTG.Vacinacao.CrossCutting.csproj" />
     <ProjectReference Include="..\BTG.Vacinacao.IoC\BTG.Vacinacao.IoC.csproj" />
   </ItemGroup>
 
