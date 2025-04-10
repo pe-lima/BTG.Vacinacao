@@ -3,6 +3,7 @@ using BTG.Vacinacao.Application.Handlers.VaccinationHandler;
 using BTG.Vacinacao.Core.Entities;
 using BTG.Vacinacao.Core.Enums;
 using BTG.Vacinacao.Core.Interfaces.Repositories;
+using BTG.Vacinacao.CrossCutting.Exceptions;
 using FluentValidation;
 using Moq;
 
@@ -85,7 +86,7 @@ namespace BTG.Vacinacao.UnitTests.Application.Handlers.VaccinationHandler
                 .Setup(r => r.GetByCpfAsync(command.Cpf))
                 .ReturnsAsync((Person?)null);
 
-            await Assert.ThrowsAsync<ValidationException>(() =>
+            await Assert.ThrowsAsync<GlobalException>(() =>
                 _handler.Handle(command, CancellationToken.None));
         }
 
@@ -103,7 +104,7 @@ namespace BTG.Vacinacao.UnitTests.Application.Handlers.VaccinationHandler
                 .Setup(r => r.GetByCodeAsync(command.VaccineCode))
                 .ReturnsAsync((Vaccine?)null);
 
-            await Assert.ThrowsAsync<ValidationException>(() =>
+            await Assert.ThrowsAsync<GlobalException>(() =>
                 _handler.Handle(command, CancellationToken.None));
         }
 
@@ -126,7 +127,7 @@ namespace BTG.Vacinacao.UnitTests.Application.Handlers.VaccinationHandler
                 .Setup(r => r.ExistsAsync(person.Id, vaccine.Id, command.DoseType))
                 .ReturnsAsync(true);
 
-            await Assert.ThrowsAsync<ValidationException>(() =>
+            await Assert.ThrowsAsync<GlobalException>(() =>
                 _handler.Handle(command, CancellationToken.None));
         }
     }

@@ -1,8 +1,10 @@
 ﻿using BTG.Vacinacao.Application.DTOs.Vaccine;
 using BTG.Vacinacao.Application.Queries.VaccineQuery;
 using BTG.Vacinacao.Core.Interfaces.Repositories;
+using BTG.Vacinacao.CrossCutting.Exceptions;
 using FluentValidation;
 using MediatR;
+using System.Net;
 
 namespace BTG.Vacinacao.Application.Handlers.VaccineHandler
 {
@@ -20,7 +22,7 @@ namespace BTG.Vacinacao.Application.Handlers.VaccineHandler
             var vaccine = await _unitOfWork.Vaccine.GetByCodeAsync(request.Code);
 
             if (vaccine is null)
-                throw new ValidationException("Vaccine not found.");
+                throw new GlobalException("Vaccine not found.", HttpStatusCode.NotFound);
 
             return new VaccineDto
             {

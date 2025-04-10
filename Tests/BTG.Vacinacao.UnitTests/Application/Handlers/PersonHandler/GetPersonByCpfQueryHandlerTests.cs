@@ -1,6 +1,7 @@
 ﻿using BTG.Vacinacao.Application.Handlers.PersonHandler;
 using BTG.Vacinacao.Application.Queries.PersonQuery;
 using BTG.Vacinacao.Core.Interfaces.Repositories;
+using BTG.Vacinacao.CrossCutting.Exceptions;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -56,7 +57,7 @@ namespace BTG.Vacinacao.UnitTests.Application.Handlers.PersonHandler
 
             var query = new GetPersonByCpfQuery("00000000000");
 
-            await Assert.ThrowsAsync<FluentValidation.ValidationException>(() => _handler.Handle(query, CancellationToken.None));
+            await Assert.ThrowsAsync<GlobalException>(() => _handler.Handle(query, CancellationToken.None));
         }
     }
 }

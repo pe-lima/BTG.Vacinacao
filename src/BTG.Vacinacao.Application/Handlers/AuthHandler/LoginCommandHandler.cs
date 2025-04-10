@@ -2,8 +2,10 @@
 using BTG.Vacinacao.Application.DTOs.Auth;
 using BTG.Vacinacao.Core.Interfaces.Repositories;
 using BTG.Vacinacao.Core.Interfaces.Services;
+using BTG.Vacinacao.CrossCutting.Exceptions;
 using FluentValidation;
 using MediatR;
+using System.Net;
 
 namespace BTG.Vacinacao.Application.Handlers.AuthHandler
 {
@@ -23,7 +25,7 @@ namespace BTG.Vacinacao.Application.Handlers.AuthHandler
             var user = await _unitOfWork.User.GetByUsernameAsync(request.Username);
 
             if (user is null || !BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
-                throw new ValidationException("Invalid username or password.");
+                throw new GlobalException("Invalid credentials", HttpStatusCode.Unauthorized);
 
             var (token, expiration) = _jwtService.GenerateToken(user);
 

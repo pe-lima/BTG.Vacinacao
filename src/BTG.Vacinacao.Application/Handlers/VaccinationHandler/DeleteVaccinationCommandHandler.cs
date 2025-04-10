@@ -1,7 +1,8 @@
 ﻿using BTG.Vacinacao.Application.Commands.VaccinationCommand;
 using BTG.Vacinacao.Core.Interfaces.Repositories;
-using FluentValidation;
+using BTG.Vacinacao.CrossCutting.Exceptions;
 using MediatR;
+using System.Net;
 
 namespace BTG.Vacinacao.Application.Handlers.VaccinationHandler
 {
@@ -19,7 +20,7 @@ namespace BTG.Vacinacao.Application.Handlers.VaccinationHandler
             var vaccination = await _unitOfWork.Vaccination.GetByIdAsync(request.VaccinationId);
 
             if (vaccination is null)
-                throw new ValidationException("Vaccination record not found.");
+                throw new GlobalException("Vaccination record not found.", HttpStatusCode.NotFound);
 
             _unitOfWork.Vaccination.Remove(vaccination);
             await _unitOfWork.CommitAsync();

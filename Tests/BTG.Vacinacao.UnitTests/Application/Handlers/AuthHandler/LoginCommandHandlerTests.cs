@@ -1,10 +1,9 @@
 ﻿using BTG.Vacinacao.Application.Commands.AuthCommand;
-using BTG.Vacinacao.Application.DTOs.Auth;
 using BTG.Vacinacao.Application.Handlers.AuthHandler;
 using BTG.Vacinacao.Core.Entities;
 using BTG.Vacinacao.Core.Interfaces.Repositories;
 using BTG.Vacinacao.Core.Interfaces.Services;
-using FluentValidation;
+using BTG.Vacinacao.CrossCutting.Exceptions;
 using Moq;
 using Xunit;
 
@@ -60,7 +59,7 @@ namespace BTG.Vacinacao.UnitTests.Application.Handlers.AuthHandler
             _userRepoMock.Setup(r => r.GetByUsernameAsync(command.Username))
                          .ReturnsAsync((User?)null);
 
-            await Assert.ThrowsAsync<ValidationException>(() => _handler.Handle(command, CancellationToken.None));
+            await Assert.ThrowsAsync<GlobalException>(() => _handler.Handle(command, CancellationToken.None));
         }
 
         [Fact]
@@ -72,7 +71,7 @@ namespace BTG.Vacinacao.UnitTests.Application.Handlers.AuthHandler
             _userRepoMock.Setup(r => r.GetByUsernameAsync(command.Username))
                          .ReturnsAsync(user);
 
-            await Assert.ThrowsAsync<ValidationException>(() => _handler.Handle(command, CancellationToken.None));
+            await Assert.ThrowsAsync<GlobalException>(() => _handler.Handle(command, CancellationToken.None));
         }
     }
 }

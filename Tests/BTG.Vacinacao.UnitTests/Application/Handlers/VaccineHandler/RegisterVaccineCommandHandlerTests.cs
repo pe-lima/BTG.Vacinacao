@@ -2,6 +2,7 @@
 using BTG.Vacinacao.Application.Handlers.VaccineHandler;
 using BTG.Vacinacao.Core.Entities;
 using BTG.Vacinacao.Core.Interfaces.Repositories;
+using BTG.Vacinacao.CrossCutting.Exceptions;
 using FluentValidation;
 using Moq;
 using System.Threading;
@@ -65,7 +66,7 @@ namespace BTG.Vacinacao.UnitTests.Application.Handlers.VaccineHandler
                 .Setup(r => r.ExistsByCodeAsync(command.Code))
                 .ReturnsAsync(true);
 
-            await Assert.ThrowsAsync<ValidationException>(() =>
+            await Assert.ThrowsAsync<GlobalException>(() =>
                 _handler.Handle(command, CancellationToken.None));
         }
     }

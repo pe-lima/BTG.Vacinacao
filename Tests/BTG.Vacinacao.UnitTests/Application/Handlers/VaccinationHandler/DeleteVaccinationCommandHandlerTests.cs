@@ -3,6 +3,7 @@ using BTG.Vacinacao.Application.Handlers.VaccinationHandler;
 using BTG.Vacinacao.Core.Entities;
 using BTG.Vacinacao.Core.Enums;
 using BTG.Vacinacao.Core.Interfaces.Repositories;
+using BTG.Vacinacao.CrossCutting.Exceptions;
 using FluentValidation;
 using Moq;
 using Xunit;
@@ -56,7 +57,7 @@ namespace BTG.Vacinacao.UnitTests.Application.Handlers.VaccinationHandler
 
             var command = new DeleteVaccinationCommand(vaccinationId);
 
-            await Assert.ThrowsAsync<ValidationException>(() =>
+            await Assert.ThrowsAsync<GlobalException>(() =>
                 _handler.Handle(command, CancellationToken.None));
         }
     }
