@@ -13,9 +13,8 @@ namespace BTG.Vacinacao.Infra.Repositories
     {
         public UserRepository(DbContext context) : base(context) { }
 
-        public Task<User?> GetByUsernameAsync(string username)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<User?> GetByUsernameAsync(string username) => 
+            await _dbSet.FirstOrDefaultAsync(u => u.Username == username);
+        
     }
 }
