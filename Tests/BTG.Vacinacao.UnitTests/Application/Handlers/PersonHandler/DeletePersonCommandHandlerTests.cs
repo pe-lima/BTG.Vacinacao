@@ -3,6 +3,7 @@ using BTG.Vacinacao.Application.Handlers.PersonHandler;
 using BTG.Vacinacao.Core.Entities;
 using BTG.Vacinacao.Core.Enums;
 using BTG.Vacinacao.Core.Interfaces.Repositories;
+using BTG.Vacinacao.CrossCutting.Exceptions;
 using FluentValidation;
 using Moq;
 using Xunit;
@@ -64,7 +65,7 @@ namespace BTG.Vacinacao.UnitTests.Application.Handlers.PersonHandler
 
             var command = new DeletePersonCommand(cpf);
 
-            await Assert.ThrowsAsync<ValidationException>(() => _handler.Handle(command, CancellationToken.None));
+            await Assert.ThrowsAsync<GlobalException>(() => _handler.Handle(command, CancellationToken.None));
         }
     }
 }

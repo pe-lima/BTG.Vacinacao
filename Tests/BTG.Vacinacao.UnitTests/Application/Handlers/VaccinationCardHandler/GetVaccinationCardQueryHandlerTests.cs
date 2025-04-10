@@ -3,6 +3,7 @@ using BTG.Vacinacao.Application.Queries.VaccinationCardQuery;
 using BTG.Vacinacao.Core.Entities;
 using BTG.Vacinacao.Core.Enums;
 using BTG.Vacinacao.Core.Interfaces.Repositories;
+using BTG.Vacinacao.CrossCutting.Exceptions;
 using FluentValidation;
 using Moq;
 
@@ -43,7 +44,7 @@ namespace BTG.Vacinacao.UnitTests.Application.Handlers.VaccinationCardHandler
                 .Setup(r => r.GetByCpfAsync(query.Cpf))
                 .ReturnsAsync((Person?)null);
 
-            await Assert.ThrowsAsync<ValidationException>(() =>
+            await Assert.ThrowsAsync<GlobalException>(() =>
                 _handler.Handle(query, CancellationToken.None));
         }
 

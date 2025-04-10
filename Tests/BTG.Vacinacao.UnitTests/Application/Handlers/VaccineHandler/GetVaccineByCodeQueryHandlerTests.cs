@@ -3,6 +3,7 @@ using BTG.Vacinacao.Application.Handlers.VaccineHandler;
 using BTG.Vacinacao.Application.Queries.VaccineQuery;
 using BTG.Vacinacao.Core.Entities;
 using BTG.Vacinacao.Core.Interfaces.Repositories;
+using BTG.Vacinacao.CrossCutting.Exceptions;
 using FluentValidation;
 using Moq;
 using Xunit;
@@ -51,7 +52,7 @@ namespace BTG.Vacinacao.UnitTests.Application.Handlers.VaccineHandler
 
             var query = new GetVaccineByCodeQuery("000000");
 
-            await Assert.ThrowsAsync<ValidationException>(() => _handler.Handle(query, CancellationToken.None));
+            await Assert.ThrowsAsync<GlobalException>(() => _handler.Handle(query, CancellationToken.None));
         }
     }
 }
