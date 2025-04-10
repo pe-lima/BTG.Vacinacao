@@ -1,5 +1,6 @@
 ﻿using BTG.Vacinacao.Application.Commands.PersonCommand;
 using BTG.Vacinacao.Application.DTOs;
+using BTG.Vacinacao.Application.Queries.PersonQuery;
 using BTG.Vacinacao.Application.Queries.VaccinationCardQuery;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -28,6 +29,21 @@ namespace BTG.Vacinacao.Presentation.Controllers
         public async Task<ActionResult<VaccinationCardDto>> GetVaccinationCardByCpf(string cpf)
         {
             var query = new GetVaccinationCardByCpfQuery(cpf);
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<PersonDto>>> GetAll()
+        {
+            var result = await _mediator.Send(new GetAllPersonsQuery());
+            return Ok(result);
+        }
+
+        [HttpGet("{cpf}")]
+        public async Task<ActionResult<PersonDto>> GetByCpf(string cpf)
+        {
+            var query = new GetPersonByCpfQuery(cpf);
             var result = await _mediator.Send(query);
             return Ok(result);
         }
