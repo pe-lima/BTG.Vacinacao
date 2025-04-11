@@ -19,7 +19,7 @@ namespace BTG.Vacinacao.UnitTests.Application.Validators.VaccinationValidator
         [Fact]
         public void Should_Pass_When_Command_Is_Valid()
         {
-            var command = new RegisterVaccinationCommand("12345678901", "123456", DoseType.FirstDose, DateTime.Today);
+            var command = new RegisterVaccinationCommand("12345678909", "123456", DoseType.FirstDose, DateTime.Today);
 
             var result = _validator.TestValidate(command);
 

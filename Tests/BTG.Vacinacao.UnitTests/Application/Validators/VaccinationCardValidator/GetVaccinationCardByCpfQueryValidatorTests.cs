@@ -17,7 +17,7 @@ namespace BTG.Vacinacao.UnitTests.Application.Validators.VaccinationCardValidato
         [Fact]
         public void Should_Pass_When_Cpf_Is_Valid()
         {
-            var query = new GetVaccinationCardByCpfQuery("12345678901");
+            var query = new GetVaccinationCardByCpfQuery("12345678909");
 
             var result = _validator.TestValidate(query);
 

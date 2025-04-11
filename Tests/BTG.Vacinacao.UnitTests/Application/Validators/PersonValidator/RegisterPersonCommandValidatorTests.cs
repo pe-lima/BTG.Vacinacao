@@ -17,7 +17,7 @@ namespace BTG.Vacinacao.UnitTests.Application.Validators.PersonValidator
         [Fact]
         public void Should_Pass_When_Name_And_Cpf_Are_Valid()
         {
-            var command = new RegisterPersonCommand("João da Silva", "12345678901");
+            var command = new RegisterPersonCommand("João da Silva", "12345678909");
 
             var result = _validator.TestValidate(command);
 
@@ -30,7 +30,7 @@ namespace BTG.Vacinacao.UnitTests.Application.Validators.PersonValidator
         [InlineData(null)]
         public void Should_Fail_When_Name_Is_Invalid(string invalidName)
         {
-            var command = new RegisterPersonCommand(invalidName, "12345678901");
+            var command = new RegisterPersonCommand(invalidName, "12345678909");
 
             var result = _validator.TestValidate(command);
 
@@ -40,7 +40,7 @@ namespace BTG.Vacinacao.UnitTests.Application.Validators.PersonValidator
         [Fact]
         public void Should_Fail_When_Name_Is_Too_Long()
         {
-            var command = new RegisterPersonCommand(new string('A', 101), "12345678901");
+            var command = new RegisterPersonCommand(new string('A', 101), "12345678909");
 
             var result = _validator.TestValidate(command);
 
@@ -64,7 +64,7 @@ namespace BTG.Vacinacao.UnitTests.Application.Validators.PersonValidator
         [Fact]
         public void Should_Pass_When_Cpf_Is_Valid()
         {
-            var command = new RegisterPersonCommand("João da Silva", "12345678901");
+            var command = new RegisterPersonCommand("João da Silva", "12345678909");
 
             var result = _validator.TestValidate(command);
 
