@@ -17,7 +17,7 @@ namespace BTG.Vacinacao.UnitTests.Application.Validators.PersonValidator
         [Fact]
         public void Should_Pass_When_Cpf_Is_Valid()
         {
-            var command = new DeletePersonCommand("12345678901");
+            var command = new DeletePersonCommand("12345678909");
             var result = _validator.TestValidate(command);
 
             result.ShouldNotHaveValidationErrorFor(x => x.Cpf);

@@ -16,7 +16,7 @@ namespace BTG.Vacinacao.UnitTests.Application.Validators.PersonValidator
         [Fact]
         public void Should_Pass_When_Cpf_Is_Valid()
         {
-            var query = new GetPersonByCpfQuery("12345678900");
+            var query = new GetPersonByCpfQuery("12345678909");
             var result = _validator.TestValidate(query);
             
             result.ShouldNotHaveValidationErrorFor(x => x.Cpf);

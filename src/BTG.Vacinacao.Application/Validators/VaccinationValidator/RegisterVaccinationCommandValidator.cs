@@ -1,4 +1,5 @@
 ﻿using BTG.Vacinacao.Application.Commands.VaccinationCommand;
+using BTG.Vacinacao.CrossCutting.Extensions;
 using FluentValidation;
 using System;
 
@@ -8,10 +9,7 @@ namespace BTG.Vacinacao.Application.Validators.VaccinationValidator
     {
         public RegisterVaccinationCommandValidator()
         {
-            RuleFor(x => x.Cpf)
-                .NotEmpty().WithMessage("Cpf is required.")
-                .Length(11).WithMessage("Cpf must be exactly 11 characters.")
-                .Matches(@"^\d{11}$").WithMessage("Cpf must contain only numeric characters.");
+            RuleFor(x => x.Cpf).ApplyCpfRules();
 
             RuleFor(x => x.VaccineCode)
                 .NotEmpty().WithMessage("Vaccine code is required.")

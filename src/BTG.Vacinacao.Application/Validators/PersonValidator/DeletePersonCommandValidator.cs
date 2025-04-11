@@ -1,4 +1,5 @@
 ﻿using BTG.Vacinacao.Application.Commands.PersonCommand;
+using BTG.Vacinacao.CrossCutting.Extensions;
 using FluentValidation;
 
 namespace BTG.Vacinacao.Application.Validators.PersonValidator
@@ -7,10 +8,7 @@ namespace BTG.Vacinacao.Application.Validators.PersonValidator
     {
         public DeletePersonCommandValidator()
         {
-            RuleFor(x => x.Cpf)
-                .NotEmpty().WithMessage("Cpf is required.")
-                .Length(11).WithMessage("Cpf must be exactly 11 digits.")
-                .Matches(@"^\d{11}$").WithMessage("Cpf must contain only digits.");
+            RuleFor(x => x.Cpf).ApplyCpfRules();
         }
     }
 }

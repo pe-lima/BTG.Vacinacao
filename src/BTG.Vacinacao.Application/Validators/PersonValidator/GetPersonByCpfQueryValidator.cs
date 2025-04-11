@@ -1,4 +1,5 @@
 ﻿using BTG.Vacinacao.Application.Queries.PersonQuery;
+using BTG.Vacinacao.CrossCutting.Extensions;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
@@ -12,10 +13,7 @@ namespace BTG.Vacinacao.Application.Validators.PersonValidator
     {
         public GetPersonByCpfQueryValidator()
         {
-            RuleFor(x => x.Cpf)
-                .NotEmpty().WithMessage("CPF is required.")
-                .Length(11).WithMessage("Cpf must be exactly 11 characters.")
-                .Matches(@"^\d{11}$").WithMessage("Cpf must contain only numeric characters.");
+            RuleFor(x => x.Cpf).ApplyCpfRules();
         }
     }
 }
