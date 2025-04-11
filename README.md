@@ -129,6 +129,10 @@ reportgenerator `
   -reporttypes:Html
 ```
 
+- Exemplo de relatório de cobertura de código gerado:
+
+![Cobertura de Código](Docs/Images/coverlet-code.png)
+
 ---
 
 ## 📂 Estrutura de Pastas
