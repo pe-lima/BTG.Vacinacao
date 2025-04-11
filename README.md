@@ -26,7 +26,7 @@ A API cobre todos os requisitos do desafio técnico proposto pelo BTG, com foco 
 **Backend**
 - ASP.NET Core 8
 - MediatR
-- Entity Framework Core (com SQLite)
+- Entity Framework Core (com PostgresSql)
 
 **Validação e Segurança**
 - FluentValidation
