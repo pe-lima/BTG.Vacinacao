@@ -29,7 +29,6 @@ API RESTful para gerenciamento de vacinas, pessoas e registros de vacinação, c
 - Swagger/OpenAPI
 - JWT (Json Web Token)
 - xUnit + Moq
-- Coverlet (cobertura de testes)
 - Bcrypt
 
 ---
@@ -115,21 +114,7 @@ Os vídeos abaixo demonstram os principais fluxos do sistema:
 ## 🧪 Testes
 
 - Todos os handlers, comandos e validadores possuem testes unitários.
-- Executar cobertura:
-
-```bash
-dotnet test ./Tests/BTG.Vacinacao.UnitTests `
-  /p:CollectCoverage=true `
-  /p:CoverletOutputFormat=cobertura `
-  /p:CoverletOutput=./coverage/
-
-reportgenerator `
-  -reports:"Tests/BTG.Vacinacao.UnitTests/coverage/coverage.cobertura.xml" `
-  -targetdir:"Tests/BTG.Vacinacao.UnitTests/coverage-report" `
-  -reporttypes:Html
-```
-
-- Exemplo de relatório de cobertura de código gerado:
+- Exemplo de relatório de cobertura de código gerado no vs code:
 
 ![Cobertura de Código](Docs/Images/coverlet-code.png)
 
