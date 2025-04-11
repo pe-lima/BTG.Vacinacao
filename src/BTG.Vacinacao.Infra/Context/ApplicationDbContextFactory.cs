@@ -15,7 +15,7 @@ namespace BTG.Vacinacao.Infra.Context
                 .Build();
 
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            optionsBuilder.UseSqlite(configuration.GetConnectionString("DefaultConnection"));
+            optionsBuilder.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
 
             return new ApplicationDbContext(optionsBuilder.Options);
         }

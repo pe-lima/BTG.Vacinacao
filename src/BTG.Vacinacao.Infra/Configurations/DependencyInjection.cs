@@ -12,7 +12,7 @@ namespace BTG.Vacinacao.Infra.Configurations
         public static IServiceCollection AddInfra(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlite(configuration.GetConnectionString("DefaultConnection")));
+                options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
             
             // ( Repositories )
             services.AddScoped<IPersonRepository, PersonRepository>();
